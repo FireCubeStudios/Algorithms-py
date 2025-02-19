@@ -7,14 +7,21 @@ class ListNode:
          self.next = next
 
 
-
+# Unfinished
 class Solution:
-     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        
-        return
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        head = ListNode(0) # Head of answer LinkedList which we pass to first recursive call
+        self.recursiveAdd(0, l1, l2, head) # 0 is carry forwarded at the start of the recursion
+        return head
 
-
-
+    # Recursively traverse 2 LinkedLists list1, list2 and add the values of each digit at each node
+    # We add them by adding the node values and also adding a "carry forwarded" value from previous recursive step
+    # The parameters are: the carry forwarded value, list1, list2 and currentNode which is the LinkedList we return
+    def recursiveAdd(self, carry: int, list1: Optional[ListNode], list2: Optional[ListNode], currentNode: Optional[ListNode]) -> Optional[ListNode]:
+        if(list1 is None and list2 is None):
+            return currentNode # Addition finished
+        else:
+            node = ListNode(list1.val + list2.val)
 
 
 
@@ -27,8 +34,8 @@ class SolutionCursed:
     # Add the values then convert to a reverse LinkedList
     # The runtime should be O(n) linear to linked list size
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        x = self.LinkedListToInt(l1) 
-        y = self.LinkedListToInt(l2) 
+        x = self.linkedListToInt(l1) 
+        y = self.linkedListToInt(l2) 
         num = x + y
 
         # Loop over digits to convert to LinkedList
@@ -47,7 +54,7 @@ class SolutionCursed:
         return head # Return start of LinkedList
     
     # Convert a LinkedList with digits stored in a reverse order into an integer e.g [2,4,3] = 342
-    def LinkedListToInt(self, list: Optional[ListNode]) -> int:
+    def linkedListToInt(self, list: Optional[ListNode]) -> int:
         x = list.val
         i = 1 # For placeholders, start it at 1 as we already put the unit place value for x
         while list.next != None:
